@@ -86,7 +86,13 @@ public class Project1 {
                     System.out.println("Valid choices are 1­6; please re­enter.");
             }
         }
-        float percentage = (amountCorrect / (float) problemsAttempted) * 100;
+        float percentage;
+        if (problemsAttempted != 0){
+            percentage = (amountCorrect / (float) problemsAttempted) * 100;
+        } else {
+            percentage = 0;
+        }
+        
         System.out.printf("You got %d problems correct out of %d problems attempted. That is %.2f percent correct. Goodbye!\n", amountCorrect, problemsAttempted, percentage);
     }
 
