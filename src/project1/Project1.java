@@ -1,26 +1,47 @@
 /**
- *
- * @author Simone
+ * Project 1 for CS 1180.
+ * This program demonstrates the use of the NetBeans IDE.
+ * The program will prompt for input, do one numerical manipulation, and output results.
  */
 package project1;
 
+/**
+ * @author Super Sir Simone Royal
+ * CS-1180L-05
+ * Instructor: Everybody
+ * Project 1: Arithmetic Quiz
+ */
 import java.util.Scanner;
 
 public class Project1 {
 
+    /**
+     * Displays all the types of options for the user's math quiz.
+     */
     static void displayMenu() {
         System.out.println("\nPlease choose one of the following options for your math quiz:");
-        System.out.println("1. Addition with numbers 1­10");
-        System.out.println("2. Addition with numbers 1­100");
-        System.out.println("3. Subtraction with numbers 1­10");
-        System.out.println("4. Subtraction with numbers 1­100");
-        System.out.println("5. Multiplication with numbers 1­10");
+        System.out.println("1. Addition with numbers 1-10");
+        System.out.println("2. Addition with numbers 1-100");
+        System.out.println("3. Subtraction with numbers 1-10");
+        System.out.println("4. Subtraction with numbers 1-100");
+        System.out.println("5. Multiplication with numbers 1-10");
         System.out.println("6. Exit the program\n");
     }
 
+    /**
+     * Prompts the user to enter a value to a generated problem of their type if
+     * the users answers correct, then it adds to the correct total, otherwise
+     * it outputs the correct answer.
+     *
+     * @param lowerBound - the lower bound of randomly generated numbers.
+     * @param upperBound - the upper bound of randomly generated numbers.
+     * @param operator - the operation the user selected. (e.g. +/-/*)
+     * @return the amount of correct questions answered by the user.
+     */
     static int quizEngine(int lowerBound, int upperBound, char operator) {
         int amountCorrect = 0;
         Scanner input = new Scanner(System.in);
+        // Output 5 questions to the user that depends on the parameters passed.
         for (int i = 0; i < 5; i++) {
             int num1 = (int) (lowerBound + Math.random() * (upperBound - lowerBound + 1));
             int num2 = (int) (lowerBound + Math.random() * (upperBound - lowerBound + 1));
@@ -48,11 +69,19 @@ public class Project1 {
         return amountCorrect;
     }
 
+    /**
+     * Prompts user to select the type of problem they wish to practice in the
+     * quiz. Once the user quiz the program it displays the statistics of how
+     * well the user did.
+     *
+     * @param args - arguments passed via the command line.
+     */
     public static void main(String[] args) {
         System.out.println("Welcome to the of Math!");
         int amountCorrect = 0, problemsAttempted = 0;
-        Boolean quit = false;
-        while (!quit) {
+        // Loop that passes the proper args to quizEngine based on the user.
+        loop:
+        while (true) {
             displayMenu();
             Scanner input = new Scanner(System.in);
             int choice = input.nextInt();
@@ -78,17 +107,15 @@ public class Project1 {
                     amountCorrect += quizEngine(1, 10, '*');
                     break;
                 case 6:
-                    quit = true;
-                    break;
+                    break loop;
                 default:
-                    System.out.println("Valid choices are 1­6; please re­enter.");
+                    System.out.println("Valid choices are 1-6; please re-enter.");
             }
         }
         float percentage = 0;
         if (problemsAttempted != 0) {
             percentage = (amountCorrect / (float) problemsAttempted) * 100;
         }
-
         System.out.printf("\nYou got %d problems correct out of %d problems attempted. That is %.2f percent correct. Goodbye!\n", amountCorrect, problemsAttempted, percentage);
     }
 }
