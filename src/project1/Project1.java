@@ -19,13 +19,13 @@ public class Project1 {
      * Displays all the types of options for the user's math quiz.
      */
     static void displayMenu() {
-        System.out.println("\nPlease choose one of the following options for your math quiz:");
-        System.out.println("1. Addition with numbers 1-10");
-        System.out.println("2. Addition with numbers 1-100");
-        System.out.println("3. Subtraction with numbers 1-10");
-        System.out.println("4. Subtraction with numbers 1-100");
-        System.out.println("5. Multiplication with numbers 1-10");
-        System.out.println("6. Exit the program\n");
+        System.out.println("\nPlease choose one of the following options for your math quiz:\n"
+                          + "1. Addition with numbers 1-10\n"
+                          + "2. Addition with numbers 1-100\n"
+                          + "3. Subtraction with numbers 1-10\n"
+                          + "4. Subtraction with numbers 1-100\n"
+                          + "5. Multiplication with numbers 1-10\n"
+                          + "6. Exit the program\n");
     }
 
     /**
@@ -43,21 +43,22 @@ public class Project1 {
         Scanner input = new Scanner(System.in);
         // Output 5 questions to the user that depends on the parameters passed.
         for (int i = 0; i < 5; i++) {
-            int num1 = (int) (lowerBound + Math.random() * (upperBound - lowerBound + 1));
-            int num2 = (int) (lowerBound + Math.random() * (upperBound - lowerBound + 1));
+            int number_1 = (int) (lowerBound + Math.random() * (upperBound - lowerBound + 1));
+            int number_2 = (int) (lowerBound + Math.random() * (upperBound - lowerBound + 1));
             int correctAnswer = 0;
             switch (operator) {
                 case '+':
-                    correctAnswer = num1 + num2;
+                    correctAnswer = number_1 + number_2;
                     break;
                 case '-':
-                    correctAnswer = num1 - num2;
+                    correctAnswer = number_1 - number_2;
                     break;
                 case '*':
-                    correctAnswer = num1 * num2;
+                    correctAnswer = number_1 * number_2;
                     break;
             }
-            System.out.printf("\nEnter the answer to the following problem: %d %c %d\n", num1, operator, num2);
+            System.out.printf("\nEnter the answer to the following problem: %d %c %d\n", number_1, operator, number_2);
+	    // Take in user input and validate it against the correct answer.
             int userAnswer = input.nextInt();
             if (userAnswer == correctAnswer) {
                 amountCorrect += 1;
@@ -77,11 +78,12 @@ public class Project1 {
      * @param args - arguments passed via the command line.
      */
     public static void main(String[] args) {
-        System.out.println("Welcome to the of Math!");
+        System.out.println("Welcome to the [redacted] school of Math!");
         int amountCorrect = 0, problemsAttempted = 0;
         // Loop that passes the proper args to quizEngine based on the user.
         loop:
         while (true) {
+	    // Call displayMenu to display options.
             displayMenu();
             Scanner input = new Scanner(System.in);
             int choice = input.nextInt();
@@ -112,6 +114,7 @@ public class Project1 {
                     System.out.println("Valid choices are 1-6; please re-enter.");
             }
         }
+	// Statistics/score handling, prevents IEEE NAN if div by 0.
         float percentage = 0;
         if (problemsAttempted != 0) {
             percentage = (amountCorrect / (float) problemsAttempted) * 100;
